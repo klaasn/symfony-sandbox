@@ -27,8 +27,8 @@ abstract class LoaderExtension implements LoaderExtensionInterface
     /**
      * Sets a configuration entry point for the given extension name.
      *
-     * @param string The configuration extension name
-     * @param mixed  A resource
+     * @param string $name     The configuration extension name
+     * @param mixed  $resource A resource
      */
     public function setConfiguration($name, $resource)
     {
@@ -42,8 +42,6 @@ abstract class LoaderExtension implements LoaderExtensionInterface
      * @param array                $config        An array of configuration values
      * @param BuilderConfiguration $configuration A BuilderConfiguration instance
      *
-     * @return BuilderConfiguration A BuilderConfiguration instance
-     *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      */
     public function load($tag, array $config, BuilderConfiguration $configuration)
@@ -52,6 +50,6 @@ abstract class LoaderExtension implements LoaderExtensionInterface
             throw new \InvalidArgumentException(sprintf('The tag "%s:%s" is not defined in the "%s" extension.', $this->getAlias(), $tag, $this->getAlias()));
         }
 
-        return $this->$method($config, $configuration);
+        $this->$method($config, $configuration);
     }
 }
